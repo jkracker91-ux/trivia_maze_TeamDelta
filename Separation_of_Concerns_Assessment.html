@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Separation of Concerns Assessment</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: #1a1a2e; color: #eee; }
+    .slide { min-height: 100vh; padding: 3rem 4rem; display: flex; flex-direction: column; justify-content: center; }
+    .slide h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: #4fc3f7; }
+    .slide h2 { font-size: 1.2rem; font-weight: normal; color: #90a4ae; margin-bottom: 2rem; }
+    .slide ul { font-size: 1.25rem; line-height: 1.8; margin: 0; padding-left: 1.5rem; }
+    .slide li { margin-bottom: 0.5rem; }
+    .notes { margin-top: 2rem; padding: 1rem 1.5rem; background: #16213e; border-left: 4px solid #4fc3f7; font-size: 0.95rem; color: #b0bec5; font-style: italic; }
+    .notes strong { color: #4fc3f7; font-style: normal; }
+    .slide-title { text-align: center; }
+    .slide-title h1 { font-size: 3rem; }
+  </style>
+</head>
+<body>
+
+  <div class="slide slide-title">
+    <h1>Code Review: Separation of Concerns</h1>
+    <h2>S504_TriviaMaze_TeamDelta — Senior Staff Engineer Assessment</h2>
+    <div class="notes">
+      <strong>Speaker notes:</strong> Today I'll present a brief code review of our Trivia Maze codebase, focusing on separation of concerns between the maze domain, persistence layer, and presentation. I'll cover what we did well, one violation we found, and a concrete fix.
+    </div>
+  </div>
+
+  <div class="slide">
+    <h1>Separation of Concerns Assessment</h1>
+    <ul>
+      <li>Maze and DB are fully decoupled — neither imports from the other</li>
+      <li>main.py is the sole translation layer (Position ↔ primitives)</li>
+      <li><strong>I/O violation:</strong> main.py line 406 calls input() directly for replay prompt</li>
+      <li>Per interfaces.md: all print() and input() must reside in view.py only</li>
+      <li>View imports only from maze; GUI modules correctly use QuizMazeGame</li>
+    </ul>
+    <div class="notes">
+      <strong>Speaker notes:</strong> The codebase maintains strict boundaries. maze.py has zero project imports—only stdlib. db.py uses only primitives like player_row, player_col, visited_cells as lists—no maze types. main.py handles all translation. However, we found one violation: when the player wins, main.py asks "Play again?" using a raw input() call instead of delegating to view. Our interfaces document says view.py owns all I/O. We need to fix that.
+    </div>
+  </div>
+
+  <div class="slide">
+    <h1>Concrete Refactoring Recommendation</h1>
+    <ul>
+      <li>Replace input('\nPlay again? (y/n): ') in main.py with view.prompt_replay()</li>
+      <li>view.prompt_replay() already exists with the themed prompt</li>
+      <li>Restores the I/O rule; centralizes all prompts in view</li>
+      <li>One-line change: if view.prompt_replay(): instead of manual input/parse</li>
+    </ul>
+    <div class="notes">
+      <strong>Speaker notes:</strong> The fix is simple. view.py already has prompt_replay() which asks "Venture into the forest again?" and returns True for yes. We just need to replace the raw input block in main.py with a call to view.prompt_replay(). That restores our I/O constraint, keeps main focused on orchestration, and makes the codebase consistent with how we handle prompt_name and prompt_resume.
+    </div>
+  </div>
+
+  <div class="slide">
+    <h1>Summary</h1>
+    <ul>
+      <li>Architecture is sound — maze and db stay decoupled</li>
+      <li>One I/O leak: replay prompt in main.py</li>
+      <li>Fix: use view.prompt_replay() — one line</li>
+    </ul>
+    <div class="notes">
+      <strong>Speaker notes:</strong> To wrap up: our separation of concerns is strong. The only issue is the replay prompt. The fix is a one-line change. Questions?
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let idx = 0;
+    function show(i) {
+      idx = Math.max(0, Math.min(i, slides.length - 1));
+      slides.forEach((s, k) => s.style.display = k === idx ? 'flex' : 'none');
+    }
+    show(0);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(idx + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(idx - 1); }
+    });
+  </script>
+</body>
+</html>

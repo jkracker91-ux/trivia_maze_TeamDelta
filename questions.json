@@ -1,0 +1,72 @@
+[
+  {
+    "question_id": "q1",
+    "text": "What house is Harry Potter sorted into?",
+    "choices": ["Slytherin", "Gryffindor", "Ravenclaw", "Hufflepuff"],
+    "correct_index": 1,
+    "category": "characters"
+  },
+  {
+    "question_id": "q2",
+    "text": "What is the spell for disarming an opponent?",
+    "choices": ["Stupefy", "Accio", "Expelliarmus", "Lumos"],
+    "correct_index": 2,
+    "category": "spells"
+  },
+  {
+    "question_id": "q3",
+    "text": "What potion grants good luck?",
+    "choices": ["Polyjuice Potion", "Veritaserum", "Amortentia", "Felix Felicis"],
+    "correct_index": 3,
+    "category": "potions"
+  },
+  {
+    "question_id": "q4",
+    "text": "Who is the headmaster of Hogwarts at the start of the series?",
+    "choices": ["Albus Dumbledore", "Minerva McGonagall", "Severus Snape", "Filius Flitwick"],
+    "correct_index": 0,
+    "category": "characters"
+  },
+  {
+    "question_id": "q5",
+    "text": "What creature is half eagle and half horse?",
+    "choices": ["Thestral", "Griffin", "Hippogriff", "Niffler"],
+    "correct_index": 2,
+    "category": "creatures"
+  },
+  {
+    "question_id": "q6",
+    "text": "What is the name of the train that takes students to Hogwarts?",
+    "choices": ["Knight Bus", "Hogwarts Express", "Durmstrang Ship", "Beauxbatons Carriage"],
+    "correct_index": 1,
+    "category": "locations"
+  },
+  {
+    "question_id": "q7",
+    "text": "Which platform at King's Cross does the Hogwarts Express depart from?",
+    "choices": ["Platform 7", "Platform 10", "Platform 12", "Platform 9 3/4"],
+    "correct_index": 3,
+    "category": "locations"
+  },
+  {
+    "question_id": "q8",
+    "text": "What spell produces light from the tip of a wand?",
+    "choices": ["Lumos", "Nox", "Incendio", "Protego"],
+    "correct_index": 0,
+    "category": "spells"
+  },
+  {
+    "question_id": "q9",
+    "text": "Who is Harry's godfather?",
+    "choices": ["Remus Lupin", "James Potter", "Sirius Black", "Arthur Weasley"],
+    "correct_index": 2,
+    "category": "characters"
+  },
+  {
+    "question_id": "q10",
+    "text": "What is the name of Hermione's cat?",
+    "choices": ["Scabbers", "Crookshanks", "Hedwig", "Pigwidgeon"],
+    "correct_index": 1,
+    "category": "creatures"
+  }
+]

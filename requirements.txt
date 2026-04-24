@@ -1,0 +1,3 @@
+pytest>=8.0
+sqlmodel>=0.0.14
+pygame-ce>=2.5
